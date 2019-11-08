@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'bandeja', loadChildren: './pages/bandeja/bandeja.module#BandejaPageModule' },
   { path: 'like', loadChildren: './pages/like/like.module#LikePageModule' },
   { path: 'unlike', loadChildren: './pages/unlike/unlike.module#UnlikePageModule' },
+  { path: 'su', loadChildren: './pages/su/su.module#SuPageModule' }
 ];
 
 @NgModule({
