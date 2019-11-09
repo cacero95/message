@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Mensaje } from '../models/mesajes_models';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -10,13 +10,13 @@ import { map } from 'rxjs/operators';
 export class MailboxService {
 
   constructor(private dba:AngularFireDatabase,
-    private alert:AlertController) { }
+    private toast:ToastController) { }
 
   intermedio(body:Mensaje):Promise<any>{
     return new Promise((resolve,reject)=>{
-      let fecha = `${new Date().getDay()}_${new Date().getMonth()}_${new Date().getFullYear()}`;
-      this.dba.object(`mensajes/${body.name} ${body.lastName}/${fecha}`).update(body).then((salida)=>{
-        this.send_modal(':)', 'Enviado');
+      let fecha = new Date().getTime();
+      this.dba.object(`mensajes/${body.name} ${body.lastName}/${fecha}`).update(body).then(()=>{
+        this.send_modal('Enviado', 'success');
         resolve(true);
       }).catch((err)=>{
         this.send_modal(':(', err.message);
@@ -24,22 +24,20 @@ export class MailboxService {
       })
     })
   }
-  async send_modal(header,subHeader){
-    let alert = await this.alert.create({
+  async send_modal(header,color){
+    let toast = await this.toast.create({
       animated:true,
       header,
-      subHeader
+      color,
+      duration:2000
     });
-    alert.present();
+    toast.present();
   }
 
   message_loading(){
     return this.dba.list('mensajes').snapshotChanges().pipe(map(values=>{
-      return values.map((element)=>{
-        let us = new Object();
-        us['key'] = element.key;
-        us['value'] = element.payload.val();
-        return us;
+      return values.map((data)=>{
+        return data.payload.val();
       })
     }))
   }

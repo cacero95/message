@@ -6,7 +6,7 @@
             </ion-button>
         </ion-buttons>
         <ion-title text-center>
-            Ionic Blank
+            IT reclamos
         </ion-title>
         <ion-buttons slot="end">
             <ion-button>
@@ -38,9 +38,7 @@
     </div>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
+
 
     <div style="background: #ffffff; margin:50px 40px 50px 40px; padding:0 0 50px 0; height: 500px;">
         <ion-item lines="none">
@@ -55,7 +53,16 @@
         <ion-item lines="none">
             <ion-textarea [(ngModel)]="sender.descripcion" placeholder="Descripción"></ion-textarea>
         </ion-item>
-
+        <ion-item>
+            <ion-buttons>
+                <ion-button (click)="sender.comentario=true" slot="start" fill="clear" size="small">
+                    <ion-icon name="thumbs-up"></ion-icon>
+                </ion-button>
+                <ion-button (click)="sender.comentario=false" slot="end" fill="clear" size="small">
+                    <ion-icon name="thumbs-down"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-item>
         <ion-button (click)="sent()" expand="block" shape="round" color="success">Enviar</ion-button>
     </div>
 
