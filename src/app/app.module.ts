@@ -13,7 +13,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { IonicStorageModule } from '@ionic/storage';
 import { LoginPage } from './login/login.page';
-
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDuMJX0CW9cuLK_MbzAPVz0ViCB-qmdkSY",
@@ -27,7 +27,7 @@ export const firebaseConfig = {
 
 
 @NgModule({
-  declarations: [AppComponent, LoginPage],
+  declarations: [AppComponent, LoginPage ],
   entryComponents: [LoginPage],
   imports: [BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
@@ -39,6 +39,7 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
+    EmailComposer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

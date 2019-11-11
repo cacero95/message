@@ -3,6 +3,7 @@ import { Mensaje } from '../models/mesajes_models';
 import { MailboxService } from '../services/mailbox.service';
 import { AlertController, ToastController, PopoverController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { LoginPage } from '../login/login.page';
 import { Router } from '@angular/router';
 @Component({
@@ -39,6 +40,7 @@ export class HomePage {
     private toast:ToastController,
     private pop:PopoverController,
     private platform:Platform,
+    private email:EmailComposer,
     private router:Router) {}
 
     ngOnInit() {
@@ -48,6 +50,15 @@ export class HomePage {
     //this.mailbox.intermedio(this.sender);
     this.analizar_contenido().then((data)=>{
       this.mailbox.intermedio(data);
+      let email = {
+        to: 'cacero95@gmail.com',
+        cc: 'john.cortes@takeda.com',
+        subject: 'IT quejas',
+        body: `${this.sender.name} ${this.sender.lastName} Dice
+         ${this.sender.descripcion}`,
+        isHtml: true
+      };
+      this.email.open(email);
     })
   }
 

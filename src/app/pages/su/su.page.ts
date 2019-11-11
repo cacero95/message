@@ -9,7 +9,7 @@ import { MailboxService } from '../../services/mailbox.service';
 })
 export class SuPage implements OnInit {
 
-  change = false;
+  change = 0;
   mensajes:Mensaje[] = [];
   constructor(private mail:MailboxService) { }
 
